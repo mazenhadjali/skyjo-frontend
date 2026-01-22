@@ -1,4 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { AuthenticationLayout } from "./layout/authentication";
+import Login from "./pages/authentication/login";
+import Register from "./pages/authentication/register";
 import { Placeholder } from "./components/view/placeholder";
 
 export const ROUTES = {
@@ -16,21 +19,21 @@ export const ROUTES = {
             },
             AUTH: {
                 isLayout: true,
-                layout: <Outlet />, // Main layout component
+                element: <AuthenticationLayout />, // Authentication layout component
                 path: '/auth',
                 children: {
                     LOGIN: {
                         isLayout: false,
                         path: '/login',
                         name: 'Login',
-                        element: <Placeholder name="Login" />, // Placeholder for Login component
+                        element: <Login />, // Login component
                         isMenuItem: false,
                     },
                     REGISTER: {
                         isLayout: false,
                         path: '/register',
                         name: 'Register',
-                        element: <Placeholder name="Register" />, // Placeholder for Register component
+                        element: <Register />, // Register component
                         isMenuItem: false,
                     },
                 },
