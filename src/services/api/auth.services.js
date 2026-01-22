@@ -24,7 +24,6 @@ export const loginUser = async (credentials = { email: "", username: "", passwor
                 accessToken: response.data.accessToken,
                 refreshToken: response.data.refreshToken
             });
-
             return response.data;
         })
         .catch(error => {
@@ -35,15 +34,16 @@ export const loginUser = async (credentials = { email: "", username: "", passwor
 
 export const refreshToken = async () => {
     const { refreshToken } = getTokens();
-    await axios.post(ENDPOINTS.AUTH.REFRESH_TOKEN, { refreshToken }).then(response => {
-        setTokens({
-            accessToken: response.data.accessToken,
-            refreshToken: response.data.refreshToken
+    await axios.post(ENDPOINTS.AUTH.REFRESH_TOKEN, { refreshToken })
+        .then(response => {
+            setTokens({
+                accessToken: response.data.accessToken,
+                refreshToken: response.data.refreshToken
+            })
+            return response.data;
         })
-        return response.data;
-    }
-    ).catch(error => {
-        console.error("Error refreshing token:", error);
-        throw error;
-    });
+        .catch(error => {
+            console.error("Error refreshing token:", error);
+            throw error;
+        });
 };
