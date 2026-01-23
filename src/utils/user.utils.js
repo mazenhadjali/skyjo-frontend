@@ -28,3 +28,8 @@ export const getInitials = (user) => {
         .toUpperCase()
         .slice(0, 2);
 };
+
+
+export const handleCopy = (text) => {
+    navigator.clipboard.writeText(text)
+}
