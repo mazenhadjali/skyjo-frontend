@@ -1,6 +1,8 @@
 import React from 'react'
 import SuperLayout from '../super-layout'
 import { Outlet } from 'react-router-dom'
+import TopBar from './components/top-bar'
+import BottomBar from './components/buttom-bar'
 
 function DashboardLayout() {
 
@@ -11,7 +13,16 @@ function DashboardLayout() {
 
             {/* Mobile viewport panel */}
             <div className="w-full mx-auto h-full">
-                <Outlet />
+                <div className="bg-linear-to-b from-slate-900 via-slate-800 to-slate-900 text-white shadow-2xl overflow-hidden h-screen flex flex-col">
+                    {/* Top Bar */}
+                    <TopBar />
+
+                    {/* Main Content */}
+                    <Outlet />
+
+                    {/* Bottom Navigation */}
+                    <BottomBar />
+                </div>
             </div>
         </SuperLayout>
     )

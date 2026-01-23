@@ -2,20 +2,16 @@ import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Trophy, Sparkles } from 'lucide-react';
+import { useUserStore } from '@/store';
+import { getInitials } from '@/utils/user.utils';
 
-function TopBar({ user }) {
-    const getInitials = (name) => {
-        if (!name) return 'U';
-        return name
-            .split(' ')
-            .map(n => n[0])
-            .join('')
-            .toUpperCase()
-            .slice(0, 2);
-    };
+function TopBar() {
+
+    const { user } = useUserStore();
+
 
     return (
-        <div className="relative bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 p-4 pb-6">
+        <div className="relative bg-linear-to-r from-purple-600 via-blue-600 to-cyan-600 p-4 pb-6">
             {/* Background pattern overlay */}
             <div className="absolute inset-0 opacity-20">
                 <div className="absolute inset-0" style={{
@@ -31,8 +27,8 @@ function TopBar({ user }) {
                     <div className="relative">
                         <Avatar className="size-14 ring-4 ring-white/30 shadow-lg">
                             <AvatarImage src={user?.avatar} alt={user?.username || 'User'} />
-                            <AvatarFallback className="bg-gradient-to-br from-yellow-400 to-orange-500 text-white font-bold text-lg">
-                                {getInitials(user?.username || user?.email)}
+                            <AvatarFallback className="bg-linear-to-br from-yellow-400 to-orange-500 text-white font-bold text-lg">
+                                {getInitials(user)}
                             </AvatarFallback>
                         </Avatar>
                         <div className="absolute -bottom-1 -right-1 bg-green-500 size-4 rounded-full ring-2 ring-white"></div>
