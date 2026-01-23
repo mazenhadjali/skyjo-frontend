@@ -1,4 +1,4 @@
-const BASE_URL = "https://g0wq6f5w-8085.euw.devtunnels.ms/api"
+const BASE_URL = 'http://localhost:8085/api';
 
 export const ENDPOINTS = {
     AUTH: {

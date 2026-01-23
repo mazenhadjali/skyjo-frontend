@@ -1,8 +1,8 @@
 import React from 'react'
-import SuperLayout from '../super-layout'
 import { Outlet } from 'react-router-dom'
 import TopBar from './components/top-bar'
 import BottomBar from './components/buttom-bar'
+import SuperLayout from '../super-layout'
 
 function DashboardLayout() {
 
