@@ -3,6 +3,9 @@ import { AuthenticationLayout } from "./layout/authentication";
 import Login from "./pages/authentication/login";
 import Register from "./pages/authentication/register";
 import { Placeholder } from "./components/view/placeholder";
+import DashboardLayout from "./layout/dashboard";
+import AuthGuard from "./components/system/AuthGuard";
+import Landing from "./pages/landing";
 
 export const ROUTE_IDS = {
     ROOT: 'ROOT',
@@ -64,7 +67,7 @@ export const ROUTES = {
             DASHBOARD: {
                 id: ROUTE_IDS.DASHBOARD,
                 isLayout: true,
-                layout: <Outlet />, // Main layout component
+                element: <AuthGuard><DashboardLayout /></AuthGuard>, // Guarded Dashboard layout component
                 path: '/dashboard',
                 children: {
                     HOME: {
@@ -72,7 +75,7 @@ export const ROUTES = {
                         isLayout: false,
                         path: '/dashboard',
                         name: 'Dashboard Home',
-                        element: <Placeholder name="Dashboard Home" />, // Placeholder for Dashboard Home component
+                        element: <Landing />,
                         isMenuItem: true,
                     },
                     PROFILE: {

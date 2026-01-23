@@ -3,10 +3,15 @@ import { useForm } from "react-hook-form";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { loginUser } from "@/services/api/auth.services";
+import { useUserStore } from "@/store";
+import { useNavigate } from "react-router-dom";
+import { getPathByRouteId } from "@/utils/routes.utils";
+import { ROUTE_IDS } from "@/routes";
 import { Link } from "react-router-dom";
 
 function Login() {
+    const navigate = useNavigate();
+    const { login } = useUserStore();
     const form = useForm({
         defaultValues: {
             identifier: "",
@@ -21,15 +26,14 @@ function Login() {
             password: values.password,
         };
 
-        const res = await loginUser(credentials);
+        const res = await login(credentials);
         if (!res.success) {
             console.error(res);
             form.setError("identifier", { message: "Check your email/username" });
             form.setError("password", { message: "Check your password" });
             return;
         }
-        // TODO: Navigate to dashboard or show success toast
-        console.log(res);
+        navigate(getPathByRouteId(ROUTE_IDS.DASHBOARD), { replace: true });
     };
 
     return (
