@@ -6,6 +6,7 @@ import { Placeholder } from "./components/view/placeholder";
 import DashboardLayout from "./layout/dashboard";
 import AuthGuard from "./components/system/AuthGuard";
 import Landing from "./pages/landing";
+import Profile from "./pages/profile";
 
 export const ROUTE_IDS = {
     ROOT: 'ROOT',
@@ -83,7 +84,7 @@ export const ROUTES = {
                         isLayout: false,
                         path: '/profile',
                         name: 'Profile',
-                        element: <Placeholder name="Profile" />, // Placeholder for Profile component
+                        element: <Profile />,
                         isMenuItem: true,
                     },
                     STATS: {

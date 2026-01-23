@@ -18,7 +18,9 @@ function DashboardLayout() {
                     <TopBar />
 
                     {/* Main Content */}
-                    <Outlet />
+                    <div className="flex-1 overflow-y-auto">
+                        <Outlet />
+                    </div>
 
                     {/* Bottom Navigation */}
                     <BottomBar />
