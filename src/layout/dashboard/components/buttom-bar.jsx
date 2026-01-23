@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Home, User, TrendingUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { getPathByRouteId } from '@/utils/routes.utils';
+import { ROUTE_IDS } from '@/routes';
 
 function BottomBar() {
     const navigate = useNavigate();
@@ -9,22 +11,22 @@ function BottomBar() {
 
     const navItems = [
         {
-            id: 'home',
-            label: 'Home',
-            icon: Home,
-            path: '/dashboard',
-        },
-        {
             id: 'stats',
             label: 'Stats',
             icon: TrendingUp,
-            path: '/dashboard/stats',
+            path: getPathByRouteId(ROUTE_IDS.STATS),
+        },
+        {
+            id: 'home',
+            label: 'Home',
+            icon: Home,
+            path: getPathByRouteId(ROUTE_IDS.DASHBOARD),
         },
         {
             id: 'profile',
             label: 'Profile',
             icon: User,
-            path: '/dashboard/profile',
+            path: getPathByRouteId(ROUTE_IDS.PROFILE),
         },
     ];
 

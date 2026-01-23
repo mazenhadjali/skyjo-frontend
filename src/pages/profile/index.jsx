@@ -1,5 +1,5 @@
 import React from 'react'
-import { Mail, Phone, Globe, User, Copy } from 'lucide-react'
+import { Mail, Phone, Globe, User } from 'lucide-react'
 import { InfoCard } from './components/info-card'
 import { getInitials } from '@/utils/user.utils'
 import { useUserStore } from '@/store'
@@ -40,8 +40,13 @@ function Profile() {
                 <div className="space-y-3">
                     <InfoCard
                         icon={User}
-                        label="Full Name"
-                        value={`${user.firstname} ${user.lastname}`}
+                        label="First Name"
+                        value={`${user.firstname}`}
+                    />
+                    <InfoCard
+                        icon={User}
+                        label="Last Name"
+                        value={`${user.lastname}`}
                     />
                     <InfoCard
                         icon={Mail}
@@ -67,17 +72,12 @@ function Profile() {
                         label="Default Language"
                         value={user.defaultLanguage === 'en' ? 'English' : user.defaultLanguage}
                     />
-                    <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-4">
-                        <div className="flex items-center gap-3">
-                            <div className="p-2.5 rounded-lg bg-cyan-400/10">
-                                <User className="size-5 text-cyan-400" />
-                            </div>
-                            <div className="flex-1">
-                                <p className="text-xs font-medium text-slate-400 mb-1">User ID</p>
-                                <p className="text-xs font-mono text-slate-300 break-all">{user.id}</p>
-                            </div>
-                        </div>
-                    </div>
+                    <InfoCard
+                        icon={User}
+                        label="User ID"
+                        value={user.id}
+                        copyable
+                    />
                 </div>
             </div>
         </div>
