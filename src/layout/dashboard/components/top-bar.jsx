@@ -1,13 +1,56 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Trophy, Sparkles } from 'lucide-react';
+import { Trophy, Sparkles, Maximize, Minimize } from 'lucide-react';
 import { useUserStore } from '@/store';
 import { getInitials } from '@/utils/user.utils';
 
 function TopBar() {
 
     const { user } = useUserStore();
+    const [isFullscreen, setIsFullscreen] = useState(false);
+
+    // Check fullscreen state on mount and when it changes
+    useEffect(() => {
+        const handleFullscreenChange = () => {
+            const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+            setIsFullscreen(isFs);
+        };
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        return () => {
+            document.removeEventListener('fullscreenchange', handleFullscreenChange);
+            document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+        };
+    }, []);
+
+    const toggleFullscreen = async () => {
+        try {
+            const docEl = document.documentElement;
+
+            // Check if already in fullscreen (standard or webkit)
+            if (document.fullscreenElement || document.webkitFullscreenElement) {
+                // Exit fullscreen
+                if (document.exitFullscreen) {
+                    await document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+            } else {
+                // Enter fullscreen
+                if (docEl.requestFullscreen) {
+                    await docEl.requestFullscreen();
+                } else if (docEl.webkitRequestFullscreen) {
+                    docEl.webkitRequestFullscreen();
+                } else if (docEl.webkitEnterFullscreen) {
+                    docEl.webkitEnterFullscreen();
+                }
+            }
+        } catch (error) {
+            console.error('Fullscreen toggle failed:', error);
+        }
+    };
 
 
     return (
@@ -44,14 +87,27 @@ function TopBar() {
                     </div>
                 </div>
 
+                {/* Fullscreen Toggle */}
+                <button
+                    onClick={toggleFullscreen}
+                    className="p-2 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 transition-all duration-300 hover:scale-105 active:scale-95"
+                    aria-label="Toggle fullscreen"
+                >
+                    {isFullscreen ? (
+                        <Minimize className="size-5 text-white" />
+                    ) : (
+                        <Maximize className="size-5 text-white" />
+                    )}
+                </button>
+
                 {/* Score Badge */}
-                <div className="flex flex-col items-end gap-1">
+                {/* <div className="flex flex-col items-end gap-1">
                     <Badge className="bg-white/20 backdrop-blur-sm border-white/30 text-white px-3 py-1 text-xs font-semibold">
                         <Trophy className="size-3" />
                         <span>{user?.score || 0} pts</span>
                     </Badge>
                     <span className="text-white/70 text-xs">Rank #{user?.rank || '—'}</span>
-                </div>
+                </div> */}
             </div>
         </div>
     );
